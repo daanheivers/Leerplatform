@@ -11,6 +11,6 @@ namespace Leerplatform.Models
         public string Naam { get; set; }
         public string Plaats { get; set; }
         public int Capaciteit { get; set; }
-        public virtual ICollection<Middel> Middelen { get; set; }
+        public List<Middel> Middelen { get; set; }
     }
 }

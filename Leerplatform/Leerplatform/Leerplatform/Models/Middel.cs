@@ -9,5 +9,7 @@ namespace Leerplatform.Models
     {
         public int MiddelId { get; set; }
         public string Naam { get; set; }
+
+        public List<Lokaal> Lokalen { get; set; }
     }
 }

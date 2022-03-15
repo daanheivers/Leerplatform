@@ -18,5 +18,6 @@ namespace Leerplatform.Models
         public DbSet<Middel> Middelen { get; set; }
         public DbSet<Planning> Planningen { get; set; }
         public DbSet<Vak> Vakken { get; set; }
+
     }
 }

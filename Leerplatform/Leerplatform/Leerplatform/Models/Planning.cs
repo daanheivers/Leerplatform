@@ -8,6 +8,6 @@ namespace Leerplatform.Models
     public class Planning
     {
         public int PlanningId { get; set; }
-        public virtual ICollection<Les> Lessen { get; set; }
+        public List<Les> Lessen { get; set; }
     }
 }

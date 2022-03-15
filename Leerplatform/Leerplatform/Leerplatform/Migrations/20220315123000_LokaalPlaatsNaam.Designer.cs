@@ -4,14 +4,16 @@ using Leerplatform.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Leerplatform.Migrations
 {
     [DbContext(typeof(LeerplatformDbContext))]
-    partial class LeerplatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220315123000_LokaalPlaatsNaam")]
+    partial class LokaalPlaatsNaam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,10 +77,15 @@ namespace Leerplatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("LokaalId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Naam")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MiddelId");
+
+                    b.HasIndex("LokaalId");
 
                     b.ToTable("Middelen");
                 });
@@ -111,21 +118,6 @@ namespace Leerplatform.Migrations
                     b.ToTable("Vakken");
                 });
 
-            modelBuilder.Entity("LokaalMiddel", b =>
-                {
-                    b.Property<string>("LokalenLokaalId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("MiddelenMiddelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("LokalenLokaalId", "MiddelenMiddelId");
-
-                    b.HasIndex("MiddelenMiddelId");
-
-                    b.ToTable("LokaalMiddel");
-                });
-
             modelBuilder.Entity("Leerplatform.Models.Les", b =>
                 {
                     b.HasOne("Leerplatform.Models.Lokaal", "Lokaal")
@@ -145,19 +137,16 @@ namespace Leerplatform.Migrations
                     b.Navigation("Vak");
                 });
 
-            modelBuilder.Entity("LokaalMiddel", b =>
+            modelBuilder.Entity("Leerplatform.Models.Middel", b =>
                 {
                     b.HasOne("Leerplatform.Models.Lokaal", null)
-                        .WithMany()
-                        .HasForeignKey("LokalenLokaalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Middelen")
+                        .HasForeignKey("LokaalId");
+                });
 
-                    b.HasOne("Leerplatform.Models.Middel", null)
-                        .WithMany()
-                        .HasForeignKey("MiddelenMiddelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("Leerplatform.Models.Lokaal", b =>
+                {
+                    b.Navigation("Middelen");
                 });
 
             modelBuilder.Entity("Leerplatform.Models.Planning", b =>

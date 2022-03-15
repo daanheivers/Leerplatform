@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Leerplatform.Models.Lokaal>
+
+@{
+    ViewData["Title"] = "Lokalen";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Nieuw Lokaal</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Naam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plaats)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capaciteit)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plaats)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capaciteit)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LokaalId">Wijzigen</a> |
+                <a asp-action="Details" asp-route-id="@item.LokaalId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LokaalId">Verwijderen</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

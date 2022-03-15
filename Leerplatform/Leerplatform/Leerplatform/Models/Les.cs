@@ -9,7 +9,7 @@ namespace Leerplatform.Models
     {
         public int LesId { get; set; }
         public DateTime Tijdstip { get; set; }
-        public virtual Vak Vak { get; set; }
-        public virtual Lokaal Lokaal { get; set; }
+        public Vak Vak { get; set; }
+        public Lokaal Lokaal { get; set; }
     }
 }

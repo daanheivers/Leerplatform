@@ -1,0 +1,56 @@
+﻿@model Leerplatform.Models.Lokaal
+
+@{
+    ViewData["Title"] = "Aanmaken";
+}
+
+<h1>Aanmaken</h1>
+
+<h4>Lokaal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LokaalId" class="control-label">Lokaal Nummer</label>
+                <input asp-for="LokaalId" class="form-control" />
+                <span asp-validation-for="LokaalId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Naam" class="control-label"></label>
+                <input asp-for="Naam" class="form-control" />
+                <span asp-validation-for="Naam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Plaats" class="control-label"></label>
+                <input asp-for="Plaats" class="form-control" />
+                <span asp-validation-for="Plaats" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Capaciteit" class="control-label"></label>
+                <input asp-for="Capaciteit" class="form-control" />
+                <span asp-validation-for="Capaciteit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Micro" class="control-label">Micro</label>
+                <input id="Micro" name="Middelen" type="checkbox" value="1" />
+                <label for="Projector" class="control-label">Projector</label>
+                <input id="Projector" name="Middelen" type="checkbox" value="2" />
+                <label for="Camera" class="control-label">Camera</label>
+                <input id="Camera" name="Middelen" type="checkbox" value="3" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Terug </a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
