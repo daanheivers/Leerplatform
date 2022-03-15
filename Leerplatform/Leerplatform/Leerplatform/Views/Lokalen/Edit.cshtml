@@ -13,6 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="LokaalId" />
+            
             <div class="form-group">
                 <label asp-for="Naam" class="control-label"></label>
                 <input asp-for="Naam" class="form-control" />
@@ -22,6 +23,11 @@
                 <label asp-for="Plaats" class="control-label"></label>
                 <input asp-for="Plaats" class="form-control" />
                 <span asp-validation-for="Plaats" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LokaalId" class="control-label"></label>
+                <input asp-for="LokaalId" class="form-control" />
+                <span asp-validation-for="LokaalId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Capaciteit" class="control-label"></label>
