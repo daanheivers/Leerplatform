@@ -33,9 +33,7 @@ namespace Leerplatform
                 options.UseSqlServer(Configuration.GetConnectionString("LeerplatformDb"));
             });
 
-            services.AddDbContext<LeerplatformContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("LeerplatformContext")));
-
+           
             
         }
 
