@@ -4,14 +4,16 @@ using Leerplatform.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Leerplatform.Migrations
 {
     [DbContext(typeof(LeerplatformDbContext))]
-    partial class LeerplatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220316140002_planningLessen")]
+    partial class planningLessen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,9 +91,6 @@ namespace Leerplatform.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Naam")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PlanningId");
 

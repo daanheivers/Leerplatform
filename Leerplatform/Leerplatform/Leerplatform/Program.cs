@@ -1,4 +1,4 @@
-using Leerplatform.Data;
+using Leerplatform.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +26,7 @@ namespace Leerplatform
                  var services = scope.ServiceProvider;
                  try
                  {
-                     var context = services.GetRequiredService<LeerplatformContext>();
+                     var context = services.GetRequiredService<LeerplatformDbContext>();
                      context.Database.EnsureCreated();
                      // DbInitializer.Initialize(context);
                  }

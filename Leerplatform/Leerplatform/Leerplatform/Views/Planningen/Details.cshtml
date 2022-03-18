@@ -1,0 +1,36 @@
+﻿@model Leerplatform.Models.Planning
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Planning</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Naam)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Naam)
+        </dd>
+        <dt class="col-sm-2">
+            Lessen
+        </dt>
+        @foreach (Les les in Model.Lessen)
+        {
+        <dd class="col-sm-10">
+            @les.VakId |
+            @les.LokaalId |
+            @les.Tijdstip |
+            <a asp-controller="Lessen" asp-action="Delete" asp-route-id="@les.LesId">Verwijderen</a>
+        </dd>
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PlanningId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

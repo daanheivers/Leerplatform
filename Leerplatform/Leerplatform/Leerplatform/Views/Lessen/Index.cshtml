@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Leerplatform.Models.Les>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tijdstip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vak)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lokaal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Planning)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tijdstip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vak.VakId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lokaal.LokaalId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Planning.PlanningId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LesId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LesId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LesId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

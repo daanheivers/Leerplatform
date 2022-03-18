@@ -43,9 +43,16 @@ namespace Leerplatform.Controllers
         }
 
         // GET: Lokalen/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            Lokaal lokaal = new Lokaal();
+            lokaal.Middelen = new List<Middel>();
+            var middelen = await _context.Middelen.ToListAsync();
+            foreach (Middel middel in middelen)
+            {
+                    lokaal.Middelen.Add(middel);
+            }
+            return View(lokaal);
         }
 
         // POST: Lokalen/Create

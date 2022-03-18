@@ -10,5 +10,6 @@ namespace Leerplatform.Models
         public string VakId { get; set; }
         public string Titel { get; set; }
         public int Studiepunten { get; set; }
+        public List<Les> Lessen { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace Leerplatform.Models
     public class Planning
     {
         public int PlanningId { get; set; }
+        public string Naam { get; set; }
         public List<Les> Lessen { get; set; }
     }
 }
