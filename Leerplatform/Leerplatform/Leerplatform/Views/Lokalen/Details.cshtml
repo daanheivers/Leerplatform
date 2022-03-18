@@ -10,6 +10,7 @@
     <h4>Lokaal</h4>
     <hr />
     <dl class="row">
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Naam)
         </dt>
@@ -21,6 +22,12 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Plaats)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LokaalId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LokaalId)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Capaciteit)
