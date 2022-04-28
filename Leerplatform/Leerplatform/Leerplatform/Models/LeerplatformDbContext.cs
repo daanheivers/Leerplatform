@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Leerplatform.Models
 {
-    public partial class LeerplatformDbContext : DbContext
+    public partial class LeerplatformDbContext : IdentityDbContext
     {
         public LeerplatformDbContext(DbContextOptions<LeerplatformDbContext> options) : base(options)
         {
