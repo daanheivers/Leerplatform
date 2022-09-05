@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31605.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leerplatform", "Leerplatform\Leerplatform.csproj", "{B4F5F0F6-9294-4F49-B374-089CFD136827}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leerplatform", "Leerplatform\Leerplatform.csproj", "{B4F5F0F6-9294-4F49-B374-089CFD136827}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leerplatform.Testing", "Leerplatform.Testing\Leerplatform.Testing.csproj", "{0FABE6EA-3101-45BE-9352-AF09993F6989}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B4F5F0F6-9294-4F49-B374-089CFD136827}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4F5F0F6-9294-4F49-B374-089CFD136827}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4F5F0F6-9294-4F49-B374-089CFD136827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FABE6EA-3101-45BE-9352-AF09993F6989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FABE6EA-3101-45BE-9352-AF09993F6989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FABE6EA-3101-45BE-9352-AF09993F6989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FABE6EA-3101-45BE-9352-AF09993F6989}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

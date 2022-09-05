@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Leerplatform.Models.Inschrijving>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Aanvragen</h1>
+
+<p>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Inschrijvingen" asp-action="Ingepland" asp-route-username="@this.User.Identity.Name">Ingeplande Vakken</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vak.Titel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aanvaard)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vak.Titel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aanvaard)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.InschrijvingId">Details</a>
+                @if (this.User.IsInRole("Student"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.InschrijvingId">Uitschrijven</a>
+                }
+                else if (this.User.IsInRole("Docent") || this.User.IsInRole("Admin"))
+                {
+                    if (item.Aanvaard)
+                    {
+                        <a asp-action="SwapStatus" asp-route-id="@item.InschrijvingId" asp-route-username="@this.User.Identity.Name">Afwijzen</a>
+                    }
+                    else
+                    {
+                        <a asp-action="SwapStatus" asp-route-id="@item.InschrijvingId" asp-route-username="@this.User.Identity.Name">Aanvaarden</a>
+                    }
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

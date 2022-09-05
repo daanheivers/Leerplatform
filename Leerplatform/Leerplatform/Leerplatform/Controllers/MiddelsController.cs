@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 using Leerplatform.Models;
 
 namespace Leerplatform.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class MiddelsController : Controller
     {
         private readonly LeerplatformDbContext _context;

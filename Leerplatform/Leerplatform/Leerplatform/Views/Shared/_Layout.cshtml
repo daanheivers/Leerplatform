@@ -30,20 +30,27 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Lokalen" asp-action="Index">Lokalen</a>
 
                         </li>
+                        <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Vaks" asp-action="Index">Vakken</a>
                         </li>
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Planningen" asp-action="Index">Planningen</a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Middels" asp-action="Index">Middels
-                            </a>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Inschrijvingen" asp-action="Index" asp-route-username="@this.User.Identity.Name">Inschrijvingen</a>
                         </li>
-
+                        @if (this.User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Middels" asp-action="Index">
+                                    Middelen
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
+            <partial name="_LoginPartial" />
         </nav>
     </header>
     <div class="container">
@@ -54,7 +61,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Leerplatform - Norman Mireku &amp; Daan Heivers<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Leerplatform - Daan Heivers<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

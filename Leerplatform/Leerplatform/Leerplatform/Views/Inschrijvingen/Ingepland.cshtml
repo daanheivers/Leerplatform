@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Leerplatform.Models.Les>
+
+@{
+    ViewData["Title"] = "Ingepland";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Ingeplande Vakken</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tijdstip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vak)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lokaal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Planning)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tijdstip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vak.VakId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lokaal.LokaalId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Planning.Naam)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

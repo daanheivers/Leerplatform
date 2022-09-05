@@ -7,7 +7,10 @@
 <h1>Vakken</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (this.User.IsInRole("Admin") || this.User.IsInRole("Docent"))
+    {
+        <a asp-action="Create">Create New</a>
+    }
 </p>
 <table class="table">
     <thead>
@@ -37,10 +40,18 @@
                 @Html.DisplayFor(modelItem => item.Studiepunten)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.VakId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.VakId">Details</a> |
-                <a asp-action="Planning" asp-route-id="@item.VakId">Aan Planning Toevoegen</a> |
-                <a asp-action="Delete" asp-route-id="@item.VakId">Delete</a>
+                @if (this.User.IsInRole("Admin") || this.User.IsInRole("Docent"))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.VakId">Edit |</a>
+                    <a asp-action="Details" asp-route-id="@item.VakId"> Details |</a>
+                    <a asp-action="Planning" asp-route-id="@item.VakId"> Aan Planning Toevoegen |</a>
+                    <a asp-action="Delete" asp-route-id="@item.VakId"> Delete</a>
+                }
+                else
+                {
+                    <a asp-action="Details" asp-route-id="@item.VakId">Details</a>
+                    <a asp-controller="Inschrijvingen" asp-action="Create" asp-route-username="@this.User.Identity.Name" asp-route-vakId="@item.VakId">Inschrijven</a>
+                }
             </td>
         </tr>
 }

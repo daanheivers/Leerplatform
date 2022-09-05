@@ -4,45 +4,22 @@ using Leerplatform.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Leerplatform.Migrations
 {
     [DbContext(typeof(LeerplatformDbContext))]
-    partial class LeerplatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220904221959_Inschrijvingen 2")]
+    partial class Inschrijvingen2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Leerplatform.Models.Inschrijving", b =>
-                {
-                    b.Property<int>("InschrijvingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Aanvaard")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("VakId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("InschrijvingId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VakId");
-
-                    b.ToTable("Inschrijvingen");
-                });
 
             modelBuilder.Entity("Leerplatform.Models.Les", b =>
                 {
@@ -357,36 +334,6 @@ namespace Leerplatform.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PlanningUser", b =>
-                {
-                    b.Property<int>("PlanningenPlanningId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentenId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("PlanningenPlanningId", "StudentenId");
-
-                    b.HasIndex("StudentenId");
-
-                    b.ToTable("PlanningUser");
-                });
-
-            modelBuilder.Entity("Leerplatform.Models.Inschrijving", b =>
-                {
-                    b.HasOne("Leerplatform.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("Leerplatform.Models.Vak", "Vak")
-                        .WithMany()
-                        .HasForeignKey("VakId");
-
-                    b.Navigation("User");
-
-                    b.Navigation("Vak");
-                });
-
             modelBuilder.Entity("Leerplatform.Models.Les", b =>
                 {
                     b.HasOne("Leerplatform.Models.Lokaal", "Lokaal")
@@ -472,21 +419,6 @@ namespace Leerplatform.Migrations
                     b.HasOne("Leerplatform.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PlanningUser", b =>
-                {
-                    b.HasOne("Leerplatform.Models.Planning", null)
-                        .WithMany()
-                        .HasForeignKey("PlanningenPlanningId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Leerplatform.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("StudentenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

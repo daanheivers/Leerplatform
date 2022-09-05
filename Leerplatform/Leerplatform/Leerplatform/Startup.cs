@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,15 +27,22 @@ namespace Leerplatform
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions(opts =>
+            opts.JsonSerializerOptions.PropertyNamingPolicy = null); ;
 
-            services.AddDbContext<LeerplatformDbContext>(options => { 
+            services.AddDbContext<LeerplatformDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("LeerplatformDb"));
             });
+
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<LeerplatformDbContext>();
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -51,14 +59,48 @@ namespace Leerplatform
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            CreateRoles(serviceProvider).Wait();
+        }
+
+        readonly string[] ROLES = new string[] { "Admin", "Docent", "Student" };
+
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+            IdentityResult roleResult;
+
+            foreach(string role in ROLES)
+            {
+                var roleCheck = await RoleManager.RoleExistsAsync(role);
+                if (!roleCheck)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
+
+            User user = await UserManager.FindByEmailAsync("daan.heivers@gmail.com");
+            if(user != null)
+            {
+                foreach(string role in ROLES)
+                {
+                    await UserManager.AddToRoleAsync(user, role);
+                }
+            }
+
         }
     }
 }

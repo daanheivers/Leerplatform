@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Leerplatform.Models.User>
+
+    @{
+    ViewData["Title"] = "Index";
+    }
+
+    <h1>Index</h1>
+
+    <p>
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Registreer student/docent</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RNummer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RNummer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id"> Verwijderen </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>

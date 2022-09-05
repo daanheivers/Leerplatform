@@ -1,18 +1,19 @@
-﻿@model Leerplatform.Models.VakPlanningLokaalVM
+﻿@model Leerplatform.Models.PlanningStudentVM
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Inplannen";
 }
 
-<h1>Toevoegen Aan Planning</h1>
+<h1>Student Toevoegen Aan Planning</h1>
 
-<h4>@Model.Vak.Titel</h4>
+<h4>@Model.Student.UserName</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Planning">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="Vak.VakId" />
+            <input type="hidden" name="id" asp-for="@Model.Student.Id"/>
+            <input type="hidden" name="username" asp-for="@this.User.Identity.Name"/>
             <label for="Planningen">Kies een planning</label>
             <select name="Planning" id="Planningen">
                 @foreach (Planning planning in Model.Planningen)
@@ -20,15 +21,6 @@
                     <option value="@planning.PlanningId">@planning.Naam</option>
                 }
             </select>
-            <label for="Lokalen">Kies een Lokaal</label>
-            <select name="Lokaal" id="Lokalen">
-                @foreach (Lokaal lokaal in Model.Lokalen)
-                {
-                    <option value="@lokaal.LokaalId">@lokaal.Naam</option>
-                }
-            </select>
-            <label for="Tijdstip">Tijdstip</label>
-            <input type="datetime-local" name="Tijdstip" id="Tijdstip"/>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

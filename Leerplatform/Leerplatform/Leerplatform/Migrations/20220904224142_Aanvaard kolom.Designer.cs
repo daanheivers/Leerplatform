@@ -4,14 +4,16 @@ using Leerplatform.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Leerplatform.Migrations
 {
     [DbContext(typeof(LeerplatformDbContext))]
-    partial class LeerplatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220904224142_Aanvaard kolom")]
+    partial class Aanvaardkolom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -357,21 +359,6 @@ namespace Leerplatform.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PlanningUser", b =>
-                {
-                    b.Property<int>("PlanningenPlanningId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentenId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("PlanningenPlanningId", "StudentenId");
-
-                    b.HasIndex("StudentenId");
-
-                    b.ToTable("PlanningUser");
-                });
-
             modelBuilder.Entity("Leerplatform.Models.Inschrijving", b =>
                 {
                     b.HasOne("Leerplatform.Models.User", "User")
@@ -472,21 +459,6 @@ namespace Leerplatform.Migrations
                     b.HasOne("Leerplatform.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PlanningUser", b =>
-                {
-                    b.HasOne("Leerplatform.Models.Planning", null)
-                        .WithMany()
-                        .HasForeignKey("PlanningenPlanningId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Leerplatform.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("StudentenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

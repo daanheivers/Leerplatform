@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Leerplatform.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Leerplatform.Controllers
 {
@@ -19,12 +20,14 @@ namespace Leerplatform.Controllers
         }
 
         // GET: Vaks
+        [Authorize(Roles = "Admin, Docent, Student")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Vakken.ToListAsync());
         }
 
         // GET: Vaks/Details/5
+        [Authorize(Roles = "Admin, Docent, Student")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -43,6 +46,7 @@ namespace Leerplatform.Controllers
         }
 
         // GET: Vaks/Create
+        [Authorize(Roles = "Admin, Docent")]
         public IActionResult Create()
         {
             return View();
@@ -53,6 +57,7 @@ namespace Leerplatform.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Docent")]
         public async Task<IActionResult> Create([Bind("VakId,Titel,Studiepunten")] Vak vak)
         {
             if (ModelState.IsValid)
@@ -65,6 +70,7 @@ namespace Leerplatform.Controllers
         }
 
         // GET: Vaks/Edit/5
+        [Authorize(Roles = "Admin, Docent")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -85,6 +91,7 @@ namespace Leerplatform.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Docent")]
         public async Task<IActionResult> Edit(string id, [Bind("VakId,Titel,Studiepunten")] Vak vak)
         {
             if (id != vak.VakId)
@@ -116,6 +123,7 @@ namespace Leerplatform.Controllers
         }
 
         // GET: Vaks/Delete/5
+        [Authorize(Roles = "Admin, Docent")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -136,6 +144,7 @@ namespace Leerplatform.Controllers
         // POST: Vaks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Docent")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var vak = await _context.Vakken.FindAsync(id);
@@ -145,6 +154,7 @@ namespace Leerplatform.Controllers
         }
 
         // GET: Vaks/Planning/5
+        [Authorize(Roles = "Admin, Docent")]
         public async Task<IActionResult> Planning(string id)
         {
             if (id == null)
@@ -179,18 +189,32 @@ namespace Leerplatform.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Docent")]
         public async Task<IActionResult> Planning(string id, int planning, string lokaal, DateTime tijdstip)
         {
             var vak = await _context.Vakken.FindAsync(id);
             var plan = await _context.Planningen.Include(l => l.Lessen).FirstOrDefaultAsync(l => l.PlanningId == planning);
             var lok = await _context.Lokalen.FindAsync(lokaal);
-            Les les = new Les();
-            les.Vak = vak;
-            les.Lokaal = lok;
-            les.Planning = plan;
-            les.Tijdstip = tijdstip;
+            if (string.IsNullOrEmpty(id))
+            {
+                ModelState.AddModelError(nameof(id), "Vakcode verplicht");
+            }
+            if (string.IsNullOrEmpty(lokaal))
+            {
+                ModelState.AddModelError(nameof(lokaal), "Lokaalnummer verplicht");
+            }
+            var inGebruik = await _context.Lessen.Where(l => l.LokaalId == lokaal).FirstOrDefaultAsync();
+            if (inGebruik != null)
+            {
+                ModelState.AddModelError(nameof(lokaal), "Dit lokaal is reeds in gebruik");
+            }
             if (ModelState.IsValid)
             {
+                Les les = new Les();
+                les.Vak = vak;
+                les.Lokaal = lok;
+                les.Planning = plan;
+                les.Tijdstip = tijdstip;
                 try
                 {
                     _context.Add(les);
